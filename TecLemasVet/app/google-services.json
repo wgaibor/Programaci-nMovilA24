@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "214463846151",
+    "project_id": "teclemasvet",
+    "storage_bucket": "teclemasvet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214463846151:android:97163219409c26dccad7a2",
+        "android_client_info": {
+          "package_name": "ec.edu.lemas.teclemasvet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfVxQ3e3UwPmL2N8xpecYxQTvkYq3DCXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
