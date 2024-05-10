@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">TecLemasVet</string>
+    <string name="inicio_session">Inicio de sessión</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="no_usuario">No tienes usuario, registrate!</string>
+    <string name="registrate">Registrate</string>
+    <string name="registrar">Registrar</string>
+    <string name="nombre_mascota">Ingresa el nombre de tu mascota</string>
+    <string name="edad_mascota">Ingresa la edad de la mascota</string>
+    <string name="type_mascota">¿Qué tipo es tu mascota?</string>
+    <string name="guardar">Guardar</string>
+    <string name="listar_mascotas">Listar Mascota</string>
+    <string name="registrar_mascota">Registrar Mascota</string>
 </resources>
