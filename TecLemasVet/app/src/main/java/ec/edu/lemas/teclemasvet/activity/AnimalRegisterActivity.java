@@ -1,5 +1,6 @@
-package ec.edu.lemas.teclemasvet;
+package ec.edu.lemas.teclemasvet.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +17,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import ec.edu.lemas.teclemasvet.R;
+import ec.edu.lemas.teclemasvet.entity.PetEntity;
 
 public class AnimalRegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,6 +34,8 @@ public class AnimalRegisterActivity extends AppCompatActivity implements View.On
     Button btnGuardarMascota;
 
     FirebaseFirestore db;
+
+    ProgressDialog dialogoProgreso;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +48,8 @@ public class AnimalRegisterActivity extends AppCompatActivity implements View.On
         btnGuardarMascota.setOnClickListener(this);
 
         db = FirebaseFirestore.getInstance();
+        dialogoProgreso = new ProgressDialog(this);
+        dialogoProgreso.setMessage("Grabando Información");
     }
 
     @Override
@@ -48,6 +57,39 @@ public class AnimalRegisterActivity extends AppCompatActivity implements View.On
         String nombreM = nombreMascota.getText().toString();
         String edadM = edadMascota.getText().toString();
         String tipoM = tipoMascota.getText().toString();
+
+        //guardarEnBaseUsandoMapas(nombreM, edadM, tipoM);
+
+        guardarUsandoObjetos(nombreM, edadM, tipoM);
+    }
+
+    private void guardarUsandoObjetos(String nombreM, String edadM, String tipoM) {
+        dialogoProgreso.show();
+        PetEntity mascotaObjeto = new PetEntity();
+        mascotaObjeto.setNombre(nombreM);
+        mascotaObjeto.setEdad(edadM);
+        mascotaObjeto.setTipo(tipoM);
+
+        db.collection("mascotas")
+                .add(mascotaObjeto)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        dialogoProgreso.dismiss();
+                        mostrarMensaje("Se inserto el registro!!!!");
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        dialogoProgreso.dismiss();
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    private void guardarEnBaseUsandoMapas(String nombreM, String edadM, String tipoM) {
         //-------------------
         Map<String, Object> pets = new HashMap<>();
         pets.put("nombre", nombreM);

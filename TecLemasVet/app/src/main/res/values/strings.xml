@@ -11,4 +11,5 @@
     <string name="guardar">Guardar</string>
     <string name="listar_mascotas">Listar Mascota</string>
     <string name="registrar_mascota">Registrar Mascota</string>
+    <string name="subir_imagenes">Subir Imagenes</string>
 </resources>

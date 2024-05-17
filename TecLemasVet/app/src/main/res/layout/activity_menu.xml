@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp">
 
@@ -29,5 +29,22 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:text="@string/registrar_mascota" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btnSubirImagenes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="@string/subir_imagenes" />
+
+
     </LinearLayout>
 </LinearLayout>
