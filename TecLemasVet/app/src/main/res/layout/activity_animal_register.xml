@@ -10,6 +10,13 @@
     android:gravity="center"
     android:padding="20dp">
 
+    <ImageView
+        android:id="@+id/imgPet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_upload_image_foreground"/>
+
     <EditText
         android:id="@+id/edtNamePet"
         android:layout_width="match_parent"
