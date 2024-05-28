@@ -1,9 +1,12 @@
 package ec.edu.lemas.teclemasvet.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,7 +21,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -28,7 +34,7 @@ import ec.edu.lemas.teclemasvet.R;
 import ec.edu.lemas.teclemasvet.adapter.ListPetsAdapter;
 import ec.edu.lemas.teclemasvet.entity.PetEntity;
 
-public class ListPetsActivity extends AppCompatActivity {
+public class ListPetsActivity extends AppCompatActivity implements ListPetsAdapter.onItemSelectedListener {
 
     RecyclerView rvListadoMascota;
     ListPetsAdapter adapter;
@@ -41,7 +47,32 @@ public class ListPetsActivity extends AppCompatActivity {
         rvListadoMascota = findViewById(R.id.rv_listPets);
         lstMascota = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
-        consultarDatos();
+        //consultarDatos();
+        consultarDatosEnTiempoReal();
+
+
+    }
+
+    private void consultarDatosEnTiempoReal() {
+        db.collection("mascotas")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot valor, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+
+                        if (valor != null) {
+                            lstMascota = new ArrayList<>();
+                            for (QueryDocumentSnapshot documento : valor){
+                                lstMascota.add(documento.toObject(PetEntity.class));
+                            }
+                            llenarListado();
+                        } else {
+                            Log.d(">>>>>>>", "Current data: null");
+                        }
+                    }
+                });
     }
 
     private void consultarDatos() {
@@ -72,5 +103,16 @@ public class ListPetsActivity extends AppCompatActivity {
         adapter = new ListPetsAdapter(this, lstMascota);
         rvListadoMascota.setHasFixedSize(true);
         rvListadoMascota.setAdapter(adapter);
+        adapter.setListener(this);
+    }
+
+    @Override
+    public void onItemSelected(int position) {
+        Intent intento = new Intent(this, DetailsItemsActivity.class);
+        PetEntity objMascota = lstMascota.get(position);
+        intento.putExtra("imgUrl", objMascota.getUrl());
+        intento.putExtra("nombreMascota", objMascota.getNombre());
+        intento.putExtra("tipoMascota", objMascota.getTipo());
+        startActivity(intento);
     }
 }
