@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ProductoLemas</string>
+    <string name="url_base">http://192.168.100.206:80/wslemas/</string>
+    <string name="marca">Marca\n</string>
+    <string name="modelo">Modelo</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="precio">Precio</string>
+    <string name="imagen">Imagen</string>
+    <string name="guardar">Guardar</string>
+    <string name="op_guardarProducto">guardarProducto</string>
+    <string name="estado_activo">Activo</string>
+    <string name="op_obtenerProducto">obtenerProducto</string>
+</resources>
