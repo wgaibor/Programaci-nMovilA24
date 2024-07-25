@@ -1,6 +1,7 @@
 package com.example.productolemas.entity;
 
 public class ProductoEntity {
+    private int idProducto;
     private String marca;
     private String modelo;
     private String descripcion;
@@ -54,5 +55,13 @@ public class ProductoEntity {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 }

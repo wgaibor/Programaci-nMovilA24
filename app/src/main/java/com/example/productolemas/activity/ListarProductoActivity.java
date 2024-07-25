@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.productolemas.LemasApplication;
 import com.example.productolemas.R;
@@ -24,16 +25,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListarProductoActivity extends AppCompatActivity {
+public class ListarProductoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView rvListado;
     Call<ProductoResponseEntity> productoCall;
     ProductoAdapter productoAdapter;
+    SwipeRefreshLayout refresh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_producto);
         rvListado = findViewById(R.id.rv_listadoProducto);
+        refresh = findViewById(R.id.contenedor);
+        refresh.setOnRefreshListener(this);
         consumirWSObtenerProducto();
     }
 
@@ -64,5 +68,11 @@ public class ListarProductoActivity extends AppCompatActivity {
         productoAdapter = new ProductoAdapter(this, data);
         rvListado.setHasFixedSize(true);
         rvListado.setAdapter(productoAdapter);
+    }
+
+    @Override
+    public void onRefresh() {
+        consumirWSObtenerProducto();
+        refresh.setRefreshing(false);
     }
 }
